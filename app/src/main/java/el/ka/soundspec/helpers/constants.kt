@@ -6,4 +6,5 @@ const val MAX_SOUND_AMPLITUDE = 7000
 const val MIN_SOUND_AMPLITUDE = 100
 
 const val MIN_LEVELS = 0
-const val MAX_LEVELS = 30
+const val MAX_LEVELS = 12
+const val COUNT_OF_COLUMNS = 20
