@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import el.ka.soundspec.helpers.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,7 +12,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
     }
-    // 32767
 
     override fun onResume() {
         super.onResume()
@@ -22,10 +22,12 @@ class MainActivity : AppCompatActivity() {
         val handler = Handler()
         val r = object: Runnable {
             override fun run() {
-                Log.d("SoundAmp", "Max: ${sm.getAmplitude()}")
-                handler.postDelayed(this, 1000)
+                val amplitude = sm.getAmplitude()
+                val level = mapAmplitudeToLevel(amplitude, MIN_SOUND_AMPLITUDE, MAX_SOUND_AMPLITUDE, MIN_LEVELS, MAX_LEVELS)
+                Log.d("SoundAmp", "Amplitude: $amplitude Level: $level")
+                handler.postDelayed(this, SOUND_LISTENER_DELAY)
             }
         }
-        handler.postDelayed(r, 1000)
+        handler.postDelayed(r, SOUND_LISTENER_DELAY)
     }
 }
