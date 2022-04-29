@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import el.ka.soundspec.customView.SoundSpector
 import el.ka.soundspec.helpers.*
 
 class MainActivity : AppCompatActivity() {
-    private val soundState = mutableListOf<Int>(0, 1, 2, 3)
+    private lateinit var soundSpector: SoundSpector
+    private val soundState = mutableListOf<Int>()
 
     private fun prepareSoundState() {
         soundState.clear()
@@ -29,11 +31,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
+
         prepareSoundState()
     }
 
     override fun onResume() {
         super.onResume()
+
+        soundSpector = findViewById(R.id.sound_spector)
+        soundSpector.settingSize(MIN_LEVELS, MAX_LEVELS, COUNT_OF_COLUMNS)
+
 
         val sm = SoundMeter(this)
         sm.start()
@@ -45,15 +52,21 @@ class MainActivity : AppCompatActivity() {
                 if (amplitude > MAX_SOUND_AMPLITUDE) amplitude = MAX_SOUND_AMPLITUDE
                 if (amplitude < MIN_SOUND_AMPLITUDE) amplitude = MIN_SOUND_AMPLITUDE
 
-                val level = mapAmplitudeToLevel(
+                var level = mapAmplitudeToLevel(
                     amplitude,
                     MIN_SOUND_AMPLITUDE,
                     MAX_SOUND_AMPLITUDE,
                     MIN_LEVELS,
                     MAX_LEVELS
                 )
+                if (level % 2 == 0) {
+                    level += 1
+                }
+
+
                 Log.d("SoundAmp", "Amplitude: $amplitude Level: $level")
                 shiftSoundStateAndAdd(level)
+                soundSpector.setSoundState(soundState)
                 handler.postDelayed(this, SOUND_LISTENER_DELAY)
             }
         }
