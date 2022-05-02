@@ -32,8 +32,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Tic Tac Toe is a game for two players (or player in game with robot) who take turns marking the spaces in a three-by-three (or another size) grid with X or O.
-The player who succeeds in placing three (this value depends of boards size) of their marks in a horizontal, vertical, or diagonal row is the winner.
+This is an application for visualizing the sounds that are happening around. To do this, the received data from the microphone is processed and drawn according to a certain algorithm in CusromView.
 
 
 ### Built With
