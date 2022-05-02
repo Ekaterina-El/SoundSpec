@@ -3,11 +3,15 @@ package el.ka.soundspec
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import el.ka.soundspec.customView.SoundSpector
 import el.ka.soundspec.helpers.*
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var soundTimeDelay: SeekBar
+    private lateinit var maxSoundAmplitude: SeekBar
+
     private lateinit var soundSpector: SoundSpector
     private val soundState = mutableListOf<Int>()
 
@@ -38,6 +42,9 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        soundTimeDelay = findViewById(R.id.soundTimeDelay)
+        maxSoundAmplitude = findViewById(R.id.max_sound_amplitude)
+
         soundSpector = findViewById(R.id.sound_spector)
         soundSpector.settingSize(MIN_LEVELS, MAX_LEVELS, COUNT_OF_COLUMNS)
 
@@ -55,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 var level = mapAmplitudeToLevel(
                     amplitude,
                     MIN_SOUND_AMPLITUDE,
-                    MAX_SOUND_AMPLITUDE,
+                    maxSoundAmplitude.progress,
                     MIN_LEVELS,
                     MAX_LEVELS
                 )
@@ -67,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("SoundAmp", "Amplitude: $amplitude Level: $level")
                 shiftSoundStateAndAdd(level)
                 soundSpector.setSoundState(soundState)
-                handler.postDelayed(this, SOUND_LISTENER_DELAY)
+                handler.postDelayed(this, soundTimeDelay.progress.toLong())
             }
         }
         handler.postDelayed(r, SOUND_LISTENER_DELAY)

@@ -8,7 +8,7 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import el.ka.soundspec.helpers.mapAmplitudeToLevel
+import el.ka.soundspec.helpers.MAX_LEVELS
 
 class SoundSpector(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
@@ -49,8 +49,8 @@ class SoundSpector(context: Context, attrs: AttributeSet) : View(context, attrs)
     }
 
     private var color = Color.TRANSPARENT
-    private var color1 = Color.rgb(230, 217, 37)
-    private var color2 = Color.rgb(230, 117, 37)
+    private var color1 = Color.rgb(247, 162, 15)
+    private var color2 = Color.rgb(110, 240, 41)
     private var color3 = Color.rgb(230, 37, 37)
 
 
@@ -96,49 +96,32 @@ class SoundSpector(context: Context, attrs: AttributeSet) : View(context, attrs)
                     val middle: Int = maxLevel / 2 + 1
                     val c: Int = (columnsValue - 1) / 2
                     for (j in 1 until c) {
-                        val colorLevel = mapAmplitudeToLevel(middle + j, 0, c, 1, 3)
-                        paint.color = color1
+                        Log.d("colorLevel", "colorValue: ${middle + j}")
+                        paint.color = when (middle + j) {
+                            in 9..10 -> {
+                                color3
+                            }
+                            in 5..8 -> {
+                                color2
+                            }
+                            else -> {
+                                color1
+                            }
+                        }
+                        if (middle + j < MAX_LEVELS) {
+                            val topEl = columns[i][middle + j]
+                            val bottomEl = columns[i][middle - j]
+                            val r = (elementHeight * 0.6).toFloat()
 
-                        val topEl = columns[i][middle + j]
-                        val bottomEl = columns[i][middle - j]
-                        var r = (elementHeight * 0.6).toFloat()
-
-                        canvas.drawCircle(topEl.exactCenterX(), topEl.exactCenterY(), r, paint)
-                        canvas.drawCircle(bottomEl.exactCenterX(), bottomEl.exactCenterY(), r, paint)
-                        /*canvas.drawCircle(
-                            columns[i][middle - j].exactCenterX(),
-                            columns[i][middle - j].exactCenterY(),
-                            (elementHeight * 0.6).toFloat(),
-                            paint
-                        )
-
-                         */2
-//                        canvas.drawRect(columns[i][middle-j], paint)
+                            canvas.drawCircle(topEl.exactCenterX(), topEl.exactCenterY(), r, paint)
+                            canvas.drawCircle(
+                                bottomEl.exactCenterX(), bottomEl.exactCenterY(),
+                                r, paint
+                            )
+                        }
                     }
                 }
-
-                /* for (j in 0 until maxLevel) {
-                     // отрисовка по низу
-                     *//*
-                if (j < maxLevel - columnsValue) {
-                    paint.color = color
-                } else {
-                    paint.color = Color.BLACK
-                }
-                canvas.drawRect(columns[i][j], paint)
-                     *//*
-
-                    // отрисовка по середине
-
-
-                }*/
             }
         }
     }
-    // value = 2
-    // size - value = кол-во незакрашенных
-//    3 - 2 = 1
-
-    // [0, 1, 2]
-
 }
