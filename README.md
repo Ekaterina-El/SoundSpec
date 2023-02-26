@@ -20,6 +20,7 @@
     <li>
       <a href="#usage">Usage</a>
       <ul>
+        <li><a href="#demo"></a></li>
         <li><a href="#srceenshots">Screenshots</a></li>
       </ul>
     </li>
@@ -32,11 +33,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is an application for visualizing the sounds that are happening around. To do this, the received data from the microphone is processed and drawn according to a certain algorithm in CusromView.
+This is an application for visualizing the sounds that are happening around. To do this, the received data from the microphone is processed and drawn according to a certain algorithm in CustomView.
 
 
 ### Built With
-
 * Kotlin
 * MediaRecorder
 * Custom View
@@ -45,8 +45,11 @@ This is an application for visualizing the sounds that are happening around. To 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+### Demo
 [🎬Demo - YouTube] https://www.youtube.com/watch?v=5A6z05dQTn0
 
+### Gif
+![image 1](https://github.com/Ekaterina-El/SoundSpec/blob/master/demo/demo.gif) 
 
 <!-- CONTACT -->
 ## Contact
