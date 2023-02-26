@@ -49,7 +49,7 @@ This is an application for visualizing the sounds that are happening around. To 
 [🎬Demo - YouTube] https://www.youtube.com/watch?v=5A6z05dQTn0
 
 ### Gif
-![image 1](https://github.com/Ekaterina-El/SoundSpec/blob/master/demo/demo.gif) 
+![](https://github.com/Ekaterina-El/SoundSpec/blob/master/demo/demo.gif)
 
 <!-- CONTACT -->
 ## Contact
